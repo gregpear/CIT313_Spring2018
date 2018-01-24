@@ -11,11 +11,11 @@
 	include 'include/header.php';
 
 	$personal_info = array(
-					"Name"				=> "Your name", 
-					"Favorite color"	=> "Your favorite color", 
-					"Favorite movie"	=> "Your favorite movie", 
-					"Favorite book"		=> "Your favorite book", 
-					"Favorite website"	=> "Your favorite website"
+					"Name"				=> "Gregory Pearson", 
+					"Favorite color"	=> "Red", 
+					"Favorite movie"	=> "Conair", 
+					"Favorite book"		=> "Belly", 
+					"Favorite website"	=> "www.reddit.com"
 					);
 					
 	echo "<h1>".$personal_info['Name']."</h1>";
