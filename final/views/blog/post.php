@@ -24,7 +24,7 @@ if( is_array($post) ) {
 		<?php } ?>
 		
 	
-    </div><br /><br />
+    <br /><br />
 	
 	<div id="cmain"> 		
 	</div>
@@ -50,5 +50,6 @@ if( is_array($post) ) {
 		</form>
 	<?php
 	}
+	?></div><?php
 	 include('views/elements/footer.php');
 	?>
