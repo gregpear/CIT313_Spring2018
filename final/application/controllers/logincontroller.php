@@ -12,21 +12,22 @@ class LoginController extends Controller{
        if($this->userObject->checkUser($_POST['email'],$_POST['password'])) {
 
            $userInfo = $this->userObject->getUserFromEmail($_POST['email']);
+		   
+			if($userInfo['active'] == 0) {
+				$this->set('error','Your Account Is Still Awaiting Approval');
+			} else {
+				$_SESSION['uID'] = $userInfo['uID'];
 
-           $_SESSION['uID'] = $userInfo['uID'];
-
-          if(strlen($_SESSION['redirect']) > 0 ) {
-              $view = $_SESSION['redirect'];
-              unset($_SESSION['redirect']);
-              header('Location: '.BASE_URL.$view);
-          }
-           else {
-               header('Location: '.BASE_URL);
-           }
-
-
-
-
+			  if(strlen($_SESSION['redirect']) > 0 ) {
+				  $view = $_SESSION['redirect'];
+				  unset($_SESSION['redirect']);
+				  header('Location: '.BASE_URL.$view);
+			  }
+			   else {
+				   header('Location: '.BASE_URL);
+			   }
+			}
+           
        }
        else {
            $this->set('error','Wrong password / email combination');
@@ -46,5 +47,4 @@ class LoginController extends Controller{
         header('Location: '.BASE_URL);
 
     }
-	
 }

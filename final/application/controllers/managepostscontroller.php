@@ -70,13 +70,9 @@ class ManagePostsController extends Controller{
 	
 	
 	public function delete($pID){
-		$this->postObject = new Post();
-		
+		$this->postObject = new Post();	
 		$result = $this->postObject->deletePost($pID);
 		$this->set('message', $result);
 	}
-	
-	
-	
 	
 }

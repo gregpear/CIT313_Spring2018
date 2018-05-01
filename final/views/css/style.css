@@ -2,3 +2,14 @@
 body {
 	background-color: #3042c140;
 }
+
+#home-content {
+    float: left;
+    width: 75%;
+}
+#weather {
+    float: right;
+    width: 20%;
+    padding-top: 25px;
+    padding-left: 15px;
+}

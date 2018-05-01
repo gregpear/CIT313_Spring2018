@@ -1,10 +1,10 @@
 <?php
-
 class AjaxController extends Controller{
 
   		protected $postObject;
 		protected $userObject;
 		protected $categoryObject;
+		protected $commentObject;
 	
 	public function index(){
 		
@@ -20,21 +20,21 @@ class AjaxController extends Controller{
 	
 	public function postComment(){
 	
-		$this->postObject = new Post();
-		
+		$this->commentObject= new Comments();
 		$data=array('commentText'=>$_POST['data'], 'date'=>date('Y-m-d H:i:s'), 'postID'=>$_POST['postid'], 'uID'=>$_POST['userid']);
-		$result = $this->postObject->addComments($data);
+		$result = $this->commentObject->addComments($data);
 		$this->set('message', $result);
 	}
 	
 	public function getComments(){
-		$this->postObject=new Post();
+		
 		$this->userObject = new Users();
-		$post=$this->postObject->getComments($_POST['id']);
+		$this->commentObject= new Comments();
+		$post=$this->commentObject->getComments($_POST['id']);
 		$content = '';
 		foreach($post as $key => $value) {
 			$content .= '<div class="well">'.$value["commentText"].'<br>';
-			$content .= $this->userObject->getUserName();
+			$content .= $value['first_name']."&nbsp;".$value['last_name'];
 			$content .='<br>'.$value["date"].'<br><form action="#" method="POST"><input id="commentID" type="hidden" value="'.$value["commentID"].'"></form>';
 			
 			if($this->userObject->isAdmin()) {
@@ -49,14 +49,12 @@ class AjaxController extends Controller{
 	}
 	
 	public function deleteComment(){
-
-		$this->postObject = new Post();
-		$result = $this->postObject->deleteComment($_POST['id']);
+		
+		$this->commentObject= new Comments();
+		$result = $this->commentObject->deleteComment($_POST['id']);
 		$this->set('message', $result);
 	}
-	
-	
-	
+		
 }
 
 ?>

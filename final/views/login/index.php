@@ -12,11 +12,10 @@ include('views/elements/header.php')
         </div>
 
         <?php
-   }
+   		}
         ?>
    
    <?php include('views/elements/login_form.php');?>
-   
   </div>
 </div>
 <?php include('views/elements/footer.php');?>

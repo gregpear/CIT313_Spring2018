@@ -68,20 +68,27 @@
                       <li class="dropdown">
                           <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
                               <?php echo $u->getUserName();?><b class="caret"></b>
-                          </a>
+							</a>
                             <ul class="dropdown-menu" role="menu">
 
                                 <?php
                                 if($u->isAdmin()) {
                                     ?>
                                     <li>
-                                        <a href="<?php echo BASE_URL?>manageposts/">Manage Posts</a>
+                                        <a href="<?php echo BASE_URL;?>manageposts/add/">Add Blog Post</a>
+										<a href="<?php echo BASE_URL;?>manageposts/">Manage Posts</a>
+										<a href="<?php echo BASE_URL;?>categories/"> Manage Categories</a>
+										<a href="<?php echo BASE_URL;?>manageusers/"> Manage Users</a>
+										
+										
                                     </li>
                                 <?php
                                 }
                                 ?>
                                 <li>
+									<a href="<?php echo BASE_URL;?>members/profile">My Profile</a>
                                     <a href="<?php echo BASE_URL?>login/logout/">Log Out</a>
+									
 									
                                 </li>
                             </ul>

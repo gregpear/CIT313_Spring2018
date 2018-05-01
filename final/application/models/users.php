@@ -7,7 +7,6 @@ class Users extends Model{
     public $email;
     protected $user_type;
 
-
 	// Constructor
 	public function __construct(){
 		parent::__construct();
@@ -23,7 +22,6 @@ class Users extends Model{
             $this->user_type = $userInfo['user_type'];
 
         }
-
     }
 
     public function getUserName() {
@@ -53,7 +51,7 @@ class Users extends Model{
     }
 	
 	public function getUser($uID){
-		$sql = 'SELECT uID, first_name, last_name, email, password FROM users WHERE uID = ?';
+		$sql = 'SELECT uID, first_name, last_name, email, password,user_type FROM users WHERE uID = ?';
 		
 		// perform query
 		$results = $this->db->getrow($sql, array($uID));
@@ -65,7 +63,7 @@ class Users extends Model{
 		if($limit > 0){
 			$numusers = ' LIMIT '.$limit;
 		}
-		$sql = 'SELECT uID, first_name, last_name, email, password FROM users'.$numusers;
+		$sql = 'SELECT * FROM users'.$numusers;
 		
 		// perform query
 		$results = $this->db->execute($sql);
@@ -87,12 +85,8 @@ class Users extends Model{
     public function checkUser($email, $password) {
 
         $sql = "SELECT email, password FROM users WHERE email = ?";
-
         $results = $this->db->getrow($sql, array($email));
-
-
         $user = $results;
-
         $password_db = $user[1];
 
         if(password_verify($password,$password_db)) {
@@ -107,26 +101,51 @@ class Users extends Model{
     public function getUserFromEmail($email) {
 
         $sql = 'SELECT * FROM users WHERE email = ?';
-
         $results = $this->db->getrow($sql, array($email));
-
-
         $user = $results;
-
         return $user;
-
     }
 
     public function getUserFromID($uID) {
 
         $sql = 'SELECT * FROM users WHERE uID = ?';
         $results = $this->db->getrow($sql, array($uID));
-
         $user = $results;
-
         return $user;
 
     }
-
 	
+	public function updateUser($data) {
+		if(!empty($_POST['password'])){		
+       
+			$sql = 'UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ? where uID = ?';
+			$this->db->execute($sql,$data);
+			$message = "Profile updated.";
+			return $message;
+    	}
+		else{
+		
+			$sql = 'UPDATE users SET first_name = ?, last_name = ?, email = ? where uID = ?';
+			$this->db->execute($sql,$data);
+			$message = "Profile updated.";
+			return $message;
+		}
+	}
+	
+	public function deleteUser($uID){
+		
+		$sql= 'DELETE from users where uID='.$uID.'';
+		$this->db->execute($sql,$data);
+        $message = 'User deleted.';
+        return $message;
+	}
+	
+	public function isActive($uID) {
+        
+		$sql = 'UPDATE users SET active = ? where uID = ?';
+        $this->db->execute($sql,array(1, $uID));
+        $message = "User approved.";
+        return $message;
+		   
+    }	
 }
